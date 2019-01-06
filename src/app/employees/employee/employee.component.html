@@ -1,0 +1,164 @@
+<mat-toolbar>
+        <span>{{service.form.controls['$key'].value?"Edytuj wpis ":"Dodaj wpis"}}</span> 
+        <span class="fill-remaning-space"></span>
+        <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1" ><mat-icon>clear</mat-icon></button>
+</mat-toolbar>
+
+
+
+<form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()"   >
+        
+  <mat-grid-list cols="3" rowHeight="400px">
+    <mat-grid-tile>
+      <div class="controles-container">
+            <input type="hidden" formControlName="$key">
+            
+            <mat-form-field matTooltip="Wpisz nazwę narzędzia."
+            aria-label="Button that displays a tooltip when focused or hovered over"
+            matTooltipPosition="above" [matTooltipClass]="'tooltip'"> 
+                <input formControlName="fullName" matInput placeholder="Nazwa Narzedzia*"> 
+                <mat-error>To pole jest obowiązkowe.</mat-error> 
+            </mat-form-field>
+
+             <mat-form-field matTooltip="Opisz w jaki sposób narzędzie działa, do czego  służy."
+             aria-label="Button that displays a tooltip when focused or hovered over"
+             matTooltipPosition="above" [matTooltipClass]="'tooltip'"> 
+                <input formControlName="description" matInput placeholder="Opis działania narzędzia*">
+            </mat-form-field>
+
+            <mat-form-field  matTooltip="Wpisz kto stworzył narzędzie lub jest jego administratorem."
+            aria-label="Button that displays a tooltip when focused or hovered over"
+            matTooltipPosition="above" [matTooltipClass]="'tooltip'"> 
+                <input formControlName="developer" matInput placeholder="Admnistrator/Developer*">
+            </mat-form-field>
+        
+            <mat-form-field matTooltip="Wpisz zastępcę administratora albo inną osobę,która ma wiedzę o działaniu narzędzia."
+            aria-label="Button that displays a tooltip when focused or hovered over"
+            matTooltipPosition="above" [matTooltipClass]="'tooltip'"> 
+                <input formControlName="substiute" matInput placeholder="Zastępstwo"> 
+            </mat-form-field> 
+
+            <mat-form-field matTooltip="Wpisz data utworzenie narzędzia lub datę przejęcia właścicielstwa nad nim jako administrator"
+            aria-label="Button that displays a tooltip when focused or hovered over"
+            matTooltipPosition="above" [matTooltipClass]="'tooltip'"> 
+                <input formControlName="dateOfDep" matInput [matDatepicker]="picker" placeholder="Data implementacji">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+
+      </div>
+    </mat-grid-tile>
+      
+
+
+
+    <mat-grid-tile>
+
+            <div class="controles-container">    
+                 <mat-form-field matTooltip="Wpisz nazwę zospołu/centrum, które używa narzędzia."
+                 aria-label="Button that displays a tooltip when focused or hovered over"
+                 matTooltipPosition="above" [matTooltipClass]="'tooltip'"> 
+                        <input formControlName="user" matInput placeholder="Użytkownik">
+                 </mat-form-field>
+
+                 <mat-form-field matTooltip="Wpisz osobę z zespołu/centrum dla której robione było narzędzie."
+                 aria-label="Button that displays a tooltip when focused or hovered over"
+                 matTooltipPosition="above" [matTooltipClass]="'tooltip'" > 
+                        <input formControlName="userContact" matInput placeholder="Kontakt do użytkownika">
+                 </mat-form-field>
+
+                 <mat-form-field matTooltip="Wpisz czy narzędzie jest aktualnie używane."
+                 aria-label="Button that displays a tooltip when focused or hovered over"
+                 matTooltipPosition="above" [matTooltipClass]="'tooltip'">
+                    <mat-select formControlName="password" matInput placeholder="Czy narzędzie jest używane?">
+                            <ng-container  *ngFor="let yesNo of yesNos">
+                                     <mat-option value="{{yesNo.id}}">{{yesNo.value}}</mat-option>
+                             </ng-container>
+                    </mat-select>
+                </mat-form-field> 
+                 <mat-form-field matTooltip="W której technologii stworzono  narzędzie?"
+                 aria-label="Button that displays a tooltip when focused or hovered over"
+                 matTooltipPosition="above" [matTooltipClass]="'tooltip'"> 
+                    <input formControlName="tools" matInput placeholder="Użyta Technologia">
+                </mat-form-field>
+
+            <mat-form-field>
+                <mat-select formControlName="IsInUse" matInput placeholder="Czy narzędzie jest używane?">
+                        <ng-container  *ngFor="let yesNo of yesNos">
+                                 <mat-option value="{{yesNo.id}}">{{yesNo.value}}</mat-option>
+                         </ng-container>
+                </mat-select>
+            </mat-form-field> 
+
+            </div>
+
+    </mat-grid-tile>
+
+
+
+    <mat-grid-tile>
+         
+            <div class="controles-container">
+                    
+             <mat-form-field>
+                <mat-select formControlName="isReplace" matInput placeholder="Czy narzędzie jest używane?">
+                        <ng-container  *ngFor="let yesNo of yesNos">
+                                 <mat-option value="{{yesNo.id}}">{{yesNo.value}}</mat-option>
+                         </ng-container>
+                </mat-select>
+            </mat-form-field>
+
+             <mat-form-field   matTooltip="Który element zastępuje substytut?"
+             aria-label="Button that displays a tooltip when focused or hovered over"
+             matTooltipPosition="above" [matTooltipClass]="'tooltip'" > 
+                    <input formControlName="whichElementReplaced" matInput placeholder="Zastępowany element">
+             </mat-form-field>
+
+             <mat-form-field>
+                <mat-select formControlName="pathDependency" matInput placeholder="Zależność od ścieżek folderów">
+                        <ng-container  *ngFor="let yesNo of yesNos">
+                                 <mat-option value="{{yesNo.id}}">{{yesNo.value}}</mat-option>
+                         </ng-container>
+                </mat-select>
+            </mat-form-field>
+
+     
+            <mat-form-field>
+                <mat-select formControlName="manual" matInput placeholder="Dostępna dokumentacja">
+                        <ng-container  *ngFor="let yesNo of yesNos">
+                                 <mat-option value="{{yesNo.id}}">{{yesNo.value}}</mat-option>
+                         </ng-container>
+                </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field>
+                <mat-select formControlName="companyName" matInput placeholder="Nazwa ?">
+                        <ng-container  *ngFor="let yesNo of yesNos">
+                                 <mat-option value="{{yesNo.id}}">{{yesNo.value}}</mat-option>
+                         </ng-container>
+                </mat-select>
+            </mat-form-field> 
+
+                    
+            </div>
+           
+    </mat-grid-tile>
+
+    
+  </mat-grid-list>
+
+    <div class="button-row" style="float: right" >
+        <!-- <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Dodaj Narzędzie</button>
+        <button mat-raised-button color="warn" (click)="onClear()">Wyczyść</button> -->
+        <button mat-raised-button
+        matTooltip="Info about the action"
+        aria-label="Button that displays a tooltip when focused or hovered over">
+  Action
+</button>
+    </div>
+
+
+
+</form>
